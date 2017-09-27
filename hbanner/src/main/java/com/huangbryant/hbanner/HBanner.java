@@ -277,6 +277,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
+
     private void setTitleStyleUI() {
         if (titles.size() != imageUrls.size()) {
             throw new RuntimeException("[Banner] --> The number of titles and images is different");
