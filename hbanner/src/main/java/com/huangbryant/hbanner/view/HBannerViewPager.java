@@ -17,7 +17,6 @@ public class HBannerViewPager extends ViewPager {
         super(context, attrs);
     }
 
-
     @Override
     public boolean onTouchEvent(MotionEvent ev) {
         return this.scrollable && super.onTouchEvent(ev);
