@@ -238,7 +238,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
-    public HBanner setImagesTag(List<Boolean> imagesTag, int resTag) {
+    private HBanner setImagesTag(List<Boolean> imagesTag, int resTag) {
         this.resTag = resTag;
         this.imagesTag = imagesTag;
         return this;
@@ -351,17 +351,21 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
             if (imageLoader != null && imageLoader.createImageView(context) != null) {
                 imageView = imageLoader.createImageView(context);
             }
-            if (imageLoader != null && imageLoader.createTagImageView(context) != null) {
-                tagImageView = imageLoader.createTagImageView(context);
-                if (i == 0) {
-                    tagImageView.setCenterImgShow(imagesTag.get(count - 1), resTag);
-                } else if (i == count + 1) {
-                    tagImageView.setCenterImgShow(imagesTag.get(0), resTag);
-                } else {
-                    tagImageView.setCenterImgShow(imagesTag.get(i - 1), resTag);
-                }
-                imageView = tagImageView;
-            }
+//            if (imageLoader != null && imageLoader.createTagImageView(context) != null) {
+//                try {
+//                    tagImageView = imageLoader.createTagImageView(context);
+//                    if (i == 0) {
+//                        tagImageView.setCenterImgShow(imagesTag.get(count - 1), resTag);
+//                    } else if (i == count + 1) {
+//                        tagImageView.setCenterImgShow(imagesTag.get(0), resTag);
+//                    } else {
+//                        tagImageView.setCenterImgShow(imagesTag.get(i - 1), resTag);
+//                    }
+//                    imageView = tagImageView;
+//                } catch (Exception e) {
+//                    imageView = imageLoader.createImageView(context);
+//                }
+//            }
             if (imageView == null) {
                 imageView = new ImageView(context);
             }
