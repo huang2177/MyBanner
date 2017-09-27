@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/bannerContainer"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:clipChildren="false">
+                android:id="@id/bannerContainer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipChildren="false">
 
-    <com.youth.banner.view.BannerViewPager
+    <com.huangbryant.hbanner.view.HBannerViewPager
         android:id="@id/bannerViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipChildren="false" />
+        android:clipChildren="false"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:padding="10dp"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <TextView
             android:id="@id/numIndicator"
@@ -36,7 +36,7 @@
             android:gravity="center"
             android:text="1/1"
             android:textColor="#ffffff"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
         <LinearLayout
             android:id="@id/titleView"
@@ -59,7 +59,7 @@
                 android:paddingLeft="10dp"
                 android:singleLine="true"
                 android:textColor="#ffffff"
-                android:visibility="gone" />
+                android:visibility="gone"/>
 
             <FrameLayout
                 android:layout_width="wrap_content"
@@ -74,7 +74,7 @@
                     android:gravity="center_vertical"
                     android:text="1/1"
                     android:textColor="#ffffff"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
 
                 <LinearLayout
                     android:id="@id/indicatorInside"
@@ -82,10 +82,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
-                    android:visibility="gone" />
+                    android:visibility="gone"/>
             </FrameLayout>
         </LinearLayout>
     </RelativeLayout>
+
     <ImageView
         android:id="@+id/bannerDefaultImage"
         android:layout_width="match_parent"
