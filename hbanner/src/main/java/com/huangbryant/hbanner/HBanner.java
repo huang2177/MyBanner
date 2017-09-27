@@ -275,6 +275,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         setImageList(imageUrls);
         setData();
         return this;
+
     }
 
 
