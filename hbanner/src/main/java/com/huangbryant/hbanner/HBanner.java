@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.huangbryant.hbanner.listener.OnHBannerClickListener;
 import com.huangbryant.hbanner.loader.ImageLoaderInterface;
 import com.huangbryant.hbanner.view.HBannerViewPager;
+import com.huangbryant.hbanner.view.TagImageView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -57,6 +58,8 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
     private int scaleType = 1;
     private List<String> titles;
     private List imageUrls;
+    private List<Boolean> imagesTag;
+    private int resTag;
     private List<View> imageViews;
     private List<ImageView> indicatorImages;
     private Context context;
@@ -235,6 +238,12 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         return this;
     }
 
+    public HBanner setImagesTag(List<Boolean> imagesTag, int resTag) {
+        this.resTag = resTag;
+        this.imagesTag = imagesTag;
+        return this;
+    }
+
     public void update(List<?> imageUrls, List<String> titles) {
         this.titles.clear();
         this.titles.addAll(titles);
@@ -338,8 +347,20 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         initImages();
         for (int i = 0; i <= count + 1; i++) {
             View imageView = null;
-            if (imageLoader != null) {
+            TagImageView tagImageView = null;
+            if (imageLoader != null && imageLoader.createImageView(context) != null) {
                 imageView = imageLoader.createImageView(context);
+            }
+            if (imageLoader != null && imageLoader.createTagImageView(context) != null) {
+                tagImageView = imageLoader.createTagImageView(context);
+                if (i == 0) {
+                    tagImageView.setCenterImgShow(imagesTag.get(count - 1), resTag);
+                } else if (i == count + 1) {
+                    tagImageView.setCenterImgShow(imagesTag.get(0), resTag);
+                } else {
+                    tagImageView.setCenterImgShow(imagesTag.get(i - 1), resTag);
+                }
+                imageView = tagImageView;
             }
             if (imageView == null) {
                 imageView = new ImageView(context);
@@ -355,7 +376,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
             }
             imageViews.add(imageView);
             if (imageLoader != null)
-                imageLoader.displayImage(context, url, imageView, i);
+                imageLoader.displayImage(context, url, imageView);
             else
                 Log.e(tag, "Please set images loader.");
         }
@@ -565,7 +586,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
     public void onPageSelected(int position) {
         currentItem = position;
         if (mOnPageChangeListener != null) {
-            mOnPageChangeListener.onPageSelected(toRealPosition(position));
+            mOnPageChangeListener.onPageSelected(position);
         }
 
         if (bannerStyle == HBannerConfig.CIRCLE_INDICATOR ||
