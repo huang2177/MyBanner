@@ -20,7 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.huangbryant.hbanner.listener.OnBannerListener;
+import com.huangbryant.hbanner.listener.OnHBannerClickListener;
 import com.huangbryant.hbanner.loader.ImageLoaderInterface;
 import com.huangbryant.hbanner.view.HBannerViewPager;
 
@@ -68,7 +68,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
     private BannerPagerAdapter adapter;
     private OnPageChangeListener mOnPageChangeListener;
     private HBannerScroller mScroller;
-    private OnBannerListener listener;
+    private OnHBannerClickListener listener;
     private DisplayMetrics dm;
 
     private WeakHandler handler = new WeakHandler();
@@ -292,7 +292,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
     }
 
     private void setBannerStyleUI() {
-        int visibility =count > 1 ? View.VISIBLE :View.GONE;
+        int visibility = count > 1 ? View.VISIBLE : View.GONE;
         switch (bannerStyle) {
             case HBannerConfig.CIRCLE_INDICATOR:
                 indicator.setVisibility(visibility);
@@ -355,7 +355,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
             }
             imageViews.add(imageView);
             if (imageLoader != null)
-                imageLoader.displayImage(context, url, imageView);
+                imageLoader.displayImage(context, url, imageView, i);
             else
                 Log.e(tag, "Please set images loader.");
         }
@@ -563,10 +563,11 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
 
     @Override
     public void onPageSelected(int position) {
-        currentItem=position;
+        currentItem = position;
         if (mOnPageChangeListener != null) {
             mOnPageChangeListener.onPageSelected(toRealPosition(position));
         }
+
         if (bannerStyle == HBannerConfig.CIRCLE_INDICATOR ||
                 bannerStyle == HBannerConfig.CIRCLE_INDICATOR_TITLE ||
                 bannerStyle == HBannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE) {
@@ -598,12 +599,10 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
 
 
     /**
-     * 废弃了旧版接口，新版的接口下标是从1开始，同时解决下标越界问题
-     *
      * @param listener
      * @return
      */
-    public HBanner setOnBannerListener(OnBannerListener listener) {
+    public HBanner setOnBannerListener(OnHBannerClickListener listener) {
         this.listener = listener;
         return this;
     }
@@ -611,6 +610,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
     public void setOnPageChangeListener(OnPageChangeListener onPageChangeListener) {
         mOnPageChangeListener = onPageChangeListener;
     }
+
 
     public void releaseBanner() {
         handler.removeCallbacksAndMessages(null);
