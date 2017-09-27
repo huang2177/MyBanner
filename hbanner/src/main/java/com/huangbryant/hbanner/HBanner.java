@@ -348,6 +348,7 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
         bannerDefaultImage.setVisibility(GONE);
         initImages();
         for (int i = 0; i <= count + 1; i++) {
+            int position = 0;
             View imageView = null;
             TagImageView tagImageView = null;
             if (imageLoader != null && imageLoader.createImageView(context) != null) {
@@ -374,15 +375,18 @@ public class HBanner extends FrameLayout implements OnPageChangeListener {
             setScaleType(imageView);
             Object url = null;
             if (i == 0) {
+                position = count - 1;
                 url = imagesUrl.get(count - 1);
             } else if (i == count + 1) {
+                position = 0;
                 url = imagesUrl.get(0);
             } else {
+                position = i - 1;
                 url = imagesUrl.get(i - 1);
             }
             imageViews.add(imageView);
             if (imageLoader != null)
-                imageLoader.displayImage(context, url, imageView);
+                imageLoader.displayImage(context, url, imageView, position);
             else
                 Log.e(tag, "Please set images loader.");
         }
